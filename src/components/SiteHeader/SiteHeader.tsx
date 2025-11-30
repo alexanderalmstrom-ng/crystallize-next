@@ -1,7 +1,7 @@
 import { MenuIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
-import Cart from "../MiniCart/Cart";
 import MiniCart from "../MiniCart/MiniCart";
+import MiniCartContent from "../MiniCart/MiniCartContent";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import SiteHeaderLogo from "./SiteHeaderLogo";
@@ -38,7 +38,7 @@ export default function SiteHeader() {
           <SearchIcon size={16} strokeWidth={1.25} />
         </Button>
         <MiniCart>
-          <Cart />
+          <MiniCartContent />
         </MiniCart>
       </div>
     </header>

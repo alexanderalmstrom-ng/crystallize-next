@@ -7,6 +7,11 @@ export const productVariantFragment = graphql(`
       images {
         ...image
       }
+      price {
+        net
+        gross
+        currency
+      }
       attributes
     }
   `);

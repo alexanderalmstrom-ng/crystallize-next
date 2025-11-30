@@ -114,6 +114,10 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+body {
+  line-height: var(--leading-snug);
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
