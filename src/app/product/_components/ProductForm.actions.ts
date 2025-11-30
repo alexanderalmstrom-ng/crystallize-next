@@ -25,10 +25,7 @@ export async function addToCartAction(
   }
 
   const addToCartResponse = await caller.cart.addToCart({
-    items: validation.data.items.map((item) => ({
-      sku: item.sku,
-      quantity: Number(item.quantity),
-    })),
+    items: validation.data.items,
   });
 
   return addToCartResponse;
