@@ -38,8 +38,12 @@ export async function addToCart(initialState: unknown, formData: FormData) {
 
   try {
     return await addItemsToCart(validation.data.items);
-  } catch {
-    console.error("Failed to add item to cart");
+  } catch (error) {
+    console.error("Failed to add item to cart", error);
+
+    return {
+      error: "Failed to add item to cart",
+    };
   }
 }
 
