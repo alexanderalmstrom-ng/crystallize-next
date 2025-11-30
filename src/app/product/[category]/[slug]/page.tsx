@@ -11,7 +11,6 @@ export default async function ProductPage({
   params,
 }: PageProps<"/product/[category]/[slug]">) {
   const { category, slug } = await params;
-
   const product = await getProductByPath({ path: [category, slug].join("/") });
 
   if (!product) {
