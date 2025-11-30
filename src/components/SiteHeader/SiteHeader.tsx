@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { MenuIcon, SearchIcon } from "lucide-react";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import SiteHeaderLogo from "./SiteHeaderLogo";
@@ -11,13 +11,13 @@ export default function SiteHeader() {
         <MenuIcon size={16} strokeWidth={1.25} />
       </button>
       <nav className="flex gap-8 items-center justify-start max-xl:hidden">
-        <Link to="/">Products</Link>
-        <Link to="/">News</Link>
-        <Link to="/">Campaigns</Link>
-        <Link to="/">Services</Link>
-        <Link to="/">Journal</Link>
+        <Link href="/">Products</Link>
+        <Link href="/">News</Link>
+        <Link href="/">Campaigns</Link>
+        <Link href="/">Services</Link>
+        <Link href="/">Journal</Link>
       </nav>
-      <Link to="/">
+      <Link href="/">
         <SiteHeaderLogo className="xl:max-w-44 max-w-32" />
       </Link>
       <div className="ml-auto flex grow">
