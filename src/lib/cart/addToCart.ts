@@ -36,12 +36,10 @@ export async function addToCart(initialState: unknown, formData: FormData) {
   }
 
   try {
-    await addItemsToCart(validation.data.items);
+    return await addItemsToCart(validation.data.items);
   } catch {
     console.error("Failed to add item to cart");
   }
-
-  return undefined;
 }
 
 const addSkuItemMutation = graphql(`
@@ -55,12 +53,7 @@ const addSkuItemMutation = graphql(`
 async function addItemsToCart(
   items: z.infer<typeof AddToCartInputSchema>["items"],
 ) {
-  const { decryptedToken } = await getAuthToken();
   const cart = await getCart();
-
-  console.log("addItemsToCart items", items);
-  console.log("addItemsToCart cart", cart);
-  console.log("addItemsToCart decryptedToken", decryptedToken);
 
   if (!cart) {
     const newCart = await createCart({
@@ -70,6 +63,7 @@ async function addItemsToCart(
     return newCart;
   }
 
+  const { decryptedToken } = await getAuthToken();
   const addSkuItem = await crystallizeCart({
     query: addSkuItemMutation,
     variables: {

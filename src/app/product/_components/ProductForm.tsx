@@ -11,7 +11,7 @@ export default function ProductForm({ product }: { product: ProductFragment }) {
   const [state, formAction, pending] = useActionState(addToCart, null);
   const variants = getVariantsWithSkuAndName(product?.variants);
 
-  console.log("state", state);
+  console.log("addToCart state", state);
 
   return (
     <form action={formAction} className="flex flex-col gap-2">

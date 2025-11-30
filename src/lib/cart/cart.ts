@@ -71,12 +71,22 @@ export async function createCart(
     },
   });
 
-  await (await cookies()).set("cart", newCart?.data?.cart?.id ?? "", {
+  const cartIdValidation = z.string().safeParse(newCart?.data?.cart?.id);
+
+  if (!cartIdValidation.success) {
+    throw new Error("Invalid cart ID");
+  }
+
+  await setCartCookie(cartIdValidation.data);
+
+  return newCart?.data?.cart;
+}
+
+export async function setCartCookie(cartId: string) {
+  return (await cookies()).set("cart", cartId, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     maxAge: CART_COOKIE_EXPIRATION_TIME,
   });
-
-  return newCart?.data?.cart;
 }
