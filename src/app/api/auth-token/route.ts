@@ -3,9 +3,9 @@ import { env } from "@/env";
 import { AUTH_TOKEN_EXPIRATION_TIME } from "@/utils/auth";
 
 export async function POST(request: Request) {
-  const requestData = await request.json();
+  const body = await request.json();
 
-  if (requestData.secret !== env.AUTH_TOKEN_API_SECRET) {
+  if (body.secret !== env.AUTH_TOKEN_API_SECRET) {
     return new Response("Unauthorized", { status: 401 });
   }
 
