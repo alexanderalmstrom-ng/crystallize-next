@@ -9,10 +9,7 @@ export const AddToCartInputSchema = z.object({
   items: z.array(
     z.object({
       sku: z.string(),
-      quantity: z
-        .string()
-        .default("1")
-        .transform((value) => Number(value)),
+      quantity: z.number().default(1),
     }),
   ),
 });
