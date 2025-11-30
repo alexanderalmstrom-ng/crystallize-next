@@ -7,7 +7,7 @@ const AddToCartInputSchema = z.object({
   items: z.array(
     z.object({
       sku: z.string(),
-      quantity: z.number().default(1),
+      quantity: z.string().default("1"),
     }),
   ),
 });
