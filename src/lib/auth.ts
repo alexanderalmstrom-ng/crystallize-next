@@ -16,21 +16,27 @@ export const getAuthToken = async () => {
 
     return {
       token: response.token,
+      decryptedToken: response.decryptedToken,
     };
   }
 
   // Check if the token is valid and has not expired, if not, refresh the token
   try {
     await decrypt(coookieToken.data);
+    const decryptedToken = z
+      .string()
+      .safeParse((await decrypt(coookieToken.data))?.token);
 
     return {
       token: coookieToken.data,
+      decryptedToken: decryptedToken.data,
     };
   } catch {
     const refreshTokenResponse = await refreshAuthToken();
 
     return {
       token: refreshTokenResponse.token,
+      decryptedToken: refreshTokenResponse.decryptedToken,
     };
   }
 };
@@ -54,6 +60,9 @@ export const refreshAuthToken = async () => {
   const encryptedToken = await encrypt({
     token: authTokenResponse.token,
   });
+  const decryptedToken = z
+    .string()
+    .safeParse((await decrypt(encryptedToken))?.token);
 
   (await cookies()).set("token", encryptedToken, {
     httpOnly: true,
@@ -64,5 +73,6 @@ export const refreshAuthToken = async () => {
 
   return {
     token: encryptedToken,
+    decryptedToken: decryptedToken.data,
   };
 };

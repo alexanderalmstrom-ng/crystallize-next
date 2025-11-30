@@ -5,6 +5,8 @@ export const SECRET_KEY = new TextEncoder().encode(env.AUTH_TOKEN_API_SECRET);
 
 export const AUTH_TOKEN_EXPIRATION_TIME = 2592000; // 30 days
 
+export const CART_COOKIE_EXPIRATION_TIME = 2592000; // 30 days
+
 /**
  * Decrypts a token.
  * @param input - The token to decrypt.
