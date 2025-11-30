@@ -1,18 +1,19 @@
-import { cookies } from "next/headers";
 import z from "zod";
-import { graphql } from "@/gql/cart";
+import { getFragmentData, graphql } from "@/gql/cart";
 import { getAuthToken } from "../auth";
 import { crystallizeCart } from "../crystallize/client";
+import { cartFragment } from "./fragments/cart";
 
 const cartQuery = graphql(`
   query GetCart($id: UUID) {
     cart(id: $id) {
-      id
+      ...cart
     }
   }
 `);
 
 export async function getCart() {
+  const { cookies } = await import("next/headers");
   const cartCookie = z
     .string()
     .min(1)
@@ -33,5 +34,5 @@ export async function getCart() {
     },
   });
 
-  return cart?.data?.cart;
+  return getFragmentData(cartFragment, cart?.data?.cart);
 }

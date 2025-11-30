@@ -1,7 +1,7 @@
 import { type JWTPayload, jwtVerify, SignJWT } from "jose";
 import { env } from "@/env";
 
-export const SECRET_KEY = new TextEncoder().encode(env.AUTH_TOKEN_API_SECRET);
+const AUTH_SECRET = new TextEncoder().encode(env.AUTH_TOKEN_API_SECRET);
 
 export const AUTH_TOKEN_EXPIRATION_TIME = 2592000; // 30 days
 
@@ -13,7 +13,7 @@ export const CART_COOKIE_EXPIRATION_TIME = 2592000; // 30 days
  * @returns The decrypted payload.
  */
 export function decrypt(input: string) {
-  return jwtVerify(input, SECRET_KEY, {
+  return jwtVerify(input, AUTH_SECRET, {
     algorithms: ["HS256"],
   }).then((result) => result.payload);
 }
@@ -32,5 +32,5 @@ export async function encrypt(
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(`${expirationTime} seconds from now`)
-    .sign(SECRET_KEY);
+    .sign(AUTH_SECRET);
 }

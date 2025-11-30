@@ -1,10 +1,10 @@
-import { cookies } from "next/headers";
 import z from "zod";
 import { env } from "@/env";
 import { AUTH_TOKEN_EXPIRATION_TIME, decrypt, encrypt } from "@/utils/auth";
 import { getBaseURL } from "@/utils/common";
 
 export const getAuthToken = async () => {
+  const { cookies } = await import("next/headers");
   const coookieToken = z
     .string()
     .min(1)
@@ -42,6 +42,7 @@ export const getAuthToken = async () => {
 };
 
 export const refreshAuthToken = async () => {
+  const { cookies } = await import("next/headers");
   const response = await fetch(`${getBaseURL()}/api/auth-token`, {
     method: "POST",
     body: JSON.stringify({

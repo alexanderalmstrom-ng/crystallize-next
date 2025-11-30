@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import z from "zod";
 import { graphql } from "@/gql/cart";
 import { CART_COOKIE_EXPIRATION_TIME } from "@/utils/auth";
@@ -51,6 +50,7 @@ export async function createCart(
 }
 
 export async function setCartCookie(cartId: string) {
+  const { cookies } = await import("next/headers");
   return (await cookies()).set("cart", cartId, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

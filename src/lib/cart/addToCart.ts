@@ -1,5 +1,3 @@
-"use server";
-
 import z from "zod";
 import { graphql } from "@/gql/cart";
 import { getAuthToken } from "../auth";
@@ -7,7 +5,7 @@ import { crystallizeCart } from "../crystallize/client";
 import { createCart } from "./createCart";
 import { getCart } from "./getCart";
 
-const AddToCartInputSchema = z.object({
+export const AddToCartInputSchema = z.object({
   items: z.array(
     z.object({
       sku: z.string(),
@@ -19,16 +17,8 @@ const AddToCartInputSchema = z.object({
   ),
 });
 
-// biome-ignore lint/correctness/noUnusedFunctionParameters: We need the initial state for the useActionState hook
-export async function addToCart(initialState: unknown, formData: FormData) {
-  const validation = AddToCartInputSchema.safeParse({
-    items: [
-      {
-        sku: formData.get("sku"),
-        quantity: formData.get("quantity"),
-      },
-    ],
-  });
+export async function addToCart(input: z.infer<typeof AddToCartInputSchema>) {
+  const validation = AddToCartInputSchema.safeParse(input);
 
   if (!validation.success) {
     return {

@@ -1,20 +1,15 @@
 "use client";
 
-import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { ProductFragment } from "@/gql/discovery/graphql";
-import { addToCart } from "@/lib/cart/addToCart";
 import { getVariantsWithSkuAndName } from "@/utils/variant";
 
 export default function ProductForm({ product }: { product: ProductFragment }) {
-  const [state, formAction, pending] = useActionState(addToCart, null);
   const variants = getVariantsWithSkuAndName(product?.variants);
 
-  console.log("addToCart state", state);
-
   return (
-    <form action={formAction} className="flex flex-col gap-2">
+    <form className="flex flex-col gap-2">
       <input type="hidden" name="sku" value={variants?.[0]?.sku ?? ""} />
       <div className="flex gap-2">
         <Input
@@ -24,7 +19,7 @@ export default function ProductForm({ product }: { product: ProductFragment }) {
           min={1}
           defaultValue={1}
         />
-        <Button type="submit" className="grow" disabled={pending}>
+        <Button type="submit" className="grow">
           Add to cart
         </Button>
       </div>

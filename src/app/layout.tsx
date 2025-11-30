@@ -1,8 +1,9 @@
-import SiteHeader from "@/components/SiteHeader/SiteHeader";
 import "../styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
+import SiteHeader from "@/components/SiteHeader/SiteHeader";
+import { TRPCReactProvider } from "@/trpc/client";
 
 const portraitText = localFont({
   src: [
@@ -38,8 +39,10 @@ export default function RootLayout({
       <body
         className={`${portraitText.variable} antialiased min-h-screen flex flex-col`}
       >
-        <SiteHeader />
-        <main className="grow">{children}</main>
+        <TRPCReactProvider>
+          <SiteHeader />
+          <main className="grow">{children}</main>
+        </TRPCReactProvider>
       </body>
     </html>
   );
