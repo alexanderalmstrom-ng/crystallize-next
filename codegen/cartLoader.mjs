@@ -1,6 +1,6 @@
 import { buildClientSchema, getIntrospectionQuery } from "graphql";
 import z from "zod";
-import codegenConfig from "./codegen.config.mts";
+import codegenConfig from "./codegen.config.mjs";
 
 const AuthTokenResponseSchema = z
   .object({

@@ -1,13 +1,10 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
-import codegenConfig from "./codegen.config.mts";
+import codegenConfig from "./codegen.config.mjs";
 
 const config: CodegenConfig = {
   overwrite: true,
   schema: `https://api.crystallize.com/${codegenConfig.tenantId}/discovery`,
-  documents: [
-    "src/lib/discovery/**/*.{ts,tsx}",
-    "!src/gql/**/*",
-  ],
+  documents: ["src/lib/discovery/**/*.{ts,tsx}", "!src/gql/**/*"],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
     "./src/gql/discovery/": {
@@ -15,11 +12,11 @@ const config: CodegenConfig = {
       presetConfig: {
         fragmentMasking: { unmaskFunctionName: "getFragmentData" },
       },
-      plugins: ['typescript'],
+      plugins: ["typescript"],
       config: {
         documentMode: "string",
         useTypeImports: true,
-        maybeValue: 'T | null | undefined',
+        maybeValue: "T | null | undefined",
         ignoreEnumValuesFromSchema: true,
       },
     },

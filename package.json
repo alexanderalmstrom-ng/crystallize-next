@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "codegen": "dotenvx run -- npm-run-all --parallel codegen:*",
+    "codegen": "dotenvx run -- npm-run-all --parallel codegen:cart codegen:discovery",
     "codegen:discovery": "graphql-codegen --config ./codegen/discovery.ts",
     "codegen:cart": "graphql-codegen --config ./codegen/cart.ts",
     "codegen:discovery:watch": "dotenvx run -- graphql-codegen --config ./codegen/discovery.ts --watch",

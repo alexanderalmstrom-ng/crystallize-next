@@ -9,10 +9,7 @@ const config: CodegenConfig = {
       },
     },
   ],
-  documents: [
-    "src/lib/cart/**/*.{ts,tsx}",
-    "!src/gql/**/*",
-  ],
+  documents: ["src/lib/cart/**/*.{ts,tsx}", "!src/gql/**/*"],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
     "./src/gql/cart/": {
@@ -20,11 +17,11 @@ const config: CodegenConfig = {
       presetConfig: {
         fragmentMasking: { unmaskFunctionName: "getFragmentData" },
       },
-      plugins: ['typescript'],
+      plugins: ["typescript"],
       config: {
         documentMode: "string",
         useTypeImports: true,
-        maybeValue: 'T | null | undefined',
+        maybeValue: "T | null | undefined",
         ignoreEnumValuesFromSchema: true,
       },
     },
