@@ -11,7 +11,7 @@ export function removeLeadingSlash(slug: string) {
 }
 
 export function getBaseURL() {
-  if (typeof window !== "undefined") {
+  if (!isServer()) {
     return window.location.origin;
   }
 
