@@ -30,10 +30,7 @@ export default function MiniCartItem({
         </MiniCartItemLink>
       )}
       <div className="flex flex-col grow">
-        <Heading className="flex items-start text-lg">
-          {variant.name}
-          <span className="text-xxs">{item.quantity}</span>
-        </Heading>
+        <Heading className="flex items-start text-lg">{variant.name}</Heading>
         <ProductVariantDiscount
           totalDiscountAmount={totalDiscountAmount}
           totalGrossAmount={item.price.gross}
