@@ -28,8 +28,7 @@ export default function MiniCartQuantityForm({
     return null;
   }
 
-  // Use the state from useActionState to show optimistic updates
-  const currentQuantity = state?.quantity ?? quantity;
+  const currentQuantity = isPending ? state.quantity : quantity;
 
   return (
     <div
@@ -41,7 +40,7 @@ export default function MiniCartQuantityForm({
         <Button
           variant="secondary"
           size="icon-sm"
-          disabled={isPending}
+          disabled={isPending || currentQuantity === 1}
           type="submit"
         >
           <MinusIcon className="size-3" strokeWidth={1.5} />

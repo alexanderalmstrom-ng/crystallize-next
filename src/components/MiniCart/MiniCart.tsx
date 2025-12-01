@@ -11,15 +11,26 @@ import {
 } from "../ui/dialog";
 import { useMiniCartStore } from "./MiniCart.store";
 
-export default function MiniCart({ children }: { children: React.ReactNode }) {
+export default function MiniCart({
+  children,
+  total,
+}: {
+  children: React.ReactNode;
+  total?: number;
+}) {
   const open = useMiniCartStore((state) => state.open);
   const setOpen = useMiniCartStore((state) => state.setOpen);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost">
+        <Button variant="ghost" className="relative">
           <ShoppingBasketIcon strokeWidth={1.5} />
+          {total && (
+            <span className="text-xs absolute top-0.5 right-1.5 bg-background text-primary leading-none flex items-center justify-center">
+              {total}
+            </span>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent>

@@ -29,10 +29,10 @@ export default async function SiteHeader() {
       <div className="ml-auto flex grow">
         <form className="max-xl:hidden flex flex-row items-center">
           <Input
-            className="focus:outline-none border-0 placeholder:text-sm rounded-full h-8"
+            className="focus:outline-none border-0 min-w-56 placeholder:text-sm rounded-full h-8 pr-2 text-ellipsis"
             type="search"
             name="search"
-            placeholder="Search"
+            placeholder="Search for brands, products..."
           />
           <Button variant="ghost" type="submit">
             <SearchIcon className="size-4.5" strokeWidth={1.5} />
@@ -41,7 +41,9 @@ export default async function SiteHeader() {
         <Button variant="ghost" className="xl:hidden" type="button">
           <SearchIcon className="size-4.5" strokeWidth={1.5} />
         </Button>
-        <MiniCart>
+        <MiniCart
+          total={cart?.items.reduce((acc, item) => acc + item.quantity, 0)}
+        >
           <MiniCartContent>
             {cart?.items?.map((item) => (
               <MiniCartItem key={item.name} item={item} />
