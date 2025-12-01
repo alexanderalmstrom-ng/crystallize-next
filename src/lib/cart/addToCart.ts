@@ -1,9 +1,5 @@
 import z from "zod";
-import { graphql } from "@/gql/cart";
-import { getAuthToken } from "../auth";
-import { crystallizeCart } from "../crystallize/client";
-import { createCart } from "./createCart";
-import { getCart } from "./getCart";
+import { dispatchCartAction } from "./dispatchCartAction";
 
 export const AddToCartInputSchema = z.object({
   items: z.array(
@@ -24,51 +20,12 @@ export async function addToCart(input: z.infer<typeof AddToCartInputSchema>) {
   }
 
   try {
-    return await addItemsToCart(validation.data.items);
+    return await dispatchCartAction(validation.data.items, "add");
   } catch (error) {
-    console.error("Failed to add item to cart", error);
+    console.error("Failed to add item(s) to cart", error);
 
     return {
-      error: "Failed to add item to cart",
+      error: "Failed to add item(s) to cart",
     };
   }
-}
-
-const addSkuItemMutation = graphql(`
-  mutation AddSkuItem($id: UUID, $input: CartSkuItemInput!) { 
-    addSkuItem(id: $id, input: $input) {
-      id
-    }
-  }
-`);
-
-async function addItemsToCart(
-  items: z.infer<typeof AddToCartInputSchema>["items"],
-) {
-  const cart = await getCart();
-
-  if (!cart) {
-    const newCart = await createCart({
-      items,
-    });
-
-    return newCart;
-  }
-
-  const { decryptedToken } = await getAuthToken();
-  const addSkuItem = await crystallizeCart({
-    query: addSkuItemMutation,
-    variables: {
-      id: cart.id,
-      input: {
-        sku: items[0].sku,
-        quantity: items[0].quantity,
-      },
-    },
-    headers: {
-      Authorization: `Bearer ${decryptedToken}`,
-    },
-  });
-
-  return addSkuItem.data?.addSkuItem;
 }
