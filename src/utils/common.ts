@@ -11,5 +11,9 @@ export function removeLeadingSlash(slug: string) {
 }
 
 export function getBaseURL() {
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
   return isServer() ? "http://localhost:3000" : window.location.origin;
 }
