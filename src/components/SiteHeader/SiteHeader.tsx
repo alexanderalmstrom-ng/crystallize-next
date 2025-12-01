@@ -26,17 +26,23 @@ export default async function SiteHeader() {
       <Link href="/">
         <SiteHeaderLogo className="xl:max-w-44 max-w-32" />
       </Link>
-      <div className="ml-auto flex grow">
+      <div className="ml-auto flex grow gap-2">
         <form className="max-xl:hidden flex flex-row items-center">
-          <Input
-            className="focus:outline-none border-0 min-w-56 placeholder:text-sm rounded-full h-8 pr-2 text-ellipsis"
-            type="search"
-            name="search"
-            placeholder="Search for brands, products..."
-          />
-          <Button variant="ghost" type="submit">
-            <SearchIcon className="size-4.5" strokeWidth={1.5} />
-          </Button>
+          <div className="grid">
+            <Input
+              className="col-span-full row-span-full focus:outline-none min-w-56 pl-8 placeholder:text-sm rounded-full h-9 pr-2 text-ellipsis"
+              type="search"
+              name="search"
+              placeholder="Search for brands, products..."
+            />
+            <Button
+              variant="ghost"
+              type="submit"
+              className="size-8 col-span-full row-span-full self-center justify-self-start"
+            >
+              <SearchIcon className="size-4.5" strokeWidth={1.5} />
+            </Button>
+          </div>
         </form>
         <Button variant="ghost" className="xl:hidden" type="button">
           <SearchIcon className="size-4.5" strokeWidth={1.5} />
