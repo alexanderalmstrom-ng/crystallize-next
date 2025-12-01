@@ -19,7 +19,7 @@ export default function MiniCart({ children }: { children: React.ReactNode }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost">
-          <ShoppingBasketIcon strokeWidth={1.25} />
+          <ShoppingBasketIcon strokeWidth={1.5} />
         </Button>
       </DialogTrigger>
       <DialogContent>

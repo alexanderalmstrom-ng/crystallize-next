@@ -14,7 +14,7 @@ export default async function SiteHeader() {
   return (
     <header className="px-5 py-3.5 xl:px-10 xl:py-8 grid grid-cols-[1fr_auto_1fr] items-center gap-8">
       <button className="xl:hidden" type="button">
-        <MenuIcon size={16} strokeWidth={1.25} />
+        <MenuIcon size={16} strokeWidth={1.5} />
       </button>
       <nav className="flex gap-8 items-center justify-start max-xl:hidden">
         <Link href="/">Products</Link>
@@ -35,11 +35,11 @@ export default async function SiteHeader() {
             placeholder="Search"
           />
           <Button variant="ghost" type="submit">
-            <SearchIcon size={16} strokeWidth={1.25} />
+            <SearchIcon size={16} strokeWidth={1.5} />
           </Button>
         </form>
         <Button variant="ghost" className="xl:hidden" type="button">
-          <SearchIcon size={16} strokeWidth={1.25} />
+          <SearchIcon size={16} strokeWidth={1.5} />
         </Button>
         <MiniCart>
           <MiniCartContent>

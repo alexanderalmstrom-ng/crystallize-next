@@ -36,7 +36,7 @@ export default function MiniCartQuantityForm({
           disabled={isPending}
           type="submit"
         >
-          <MinusIcon className="size-2" />
+          <MinusIcon className="size-2" strokeWidth={1.5} />
         </Button>
       </form>
       <span className="text-sm">{currentQuantity}</span>
@@ -48,7 +48,7 @@ export default function MiniCartQuantityForm({
           disabled={isPending}
           type="submit"
         >
-          <PlusIcon className="size-2" />
+          <PlusIcon className="size-2" strokeWidth={1.5} />
         </Button>
       </form>
     </div>
