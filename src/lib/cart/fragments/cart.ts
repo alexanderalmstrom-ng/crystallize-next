@@ -8,6 +8,11 @@ export const cartFragment = graphql(`
           ...productVariant
         }
         quantity
+        price {
+          gross
+          net
+          currency
+        }
       }
     }
   `);

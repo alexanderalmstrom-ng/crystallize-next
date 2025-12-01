@@ -13,25 +13,33 @@ import { Heading } from "../ui/heading";
 export default function MiniCartContent() {
   const { data: cart, isPending } = useCart();
 
-  const variants = cart?.items.map((item) =>
-    getFragmentData(productVariantFragment, item.variant),
-  );
+  const items = cart?.items.map((item) => {
+    return {
+      ...item,
+      variant: getFragmentData(productVariantFragment, item.variant),
+    };
+  });
+
+  console.log("items", items);
 
   if (isPending) return <div>Loading cart...</div>;
 
   return (
     <div className="p-4 flex flex-col">
-      {variants?.map((variant) => (
-        <div key={variant?.sku} className="flex flex-row gap-2">
-          {variant.images?.[0] && (
+      {items?.map((item) => (
+        <div key={item?.variant.sku} className="flex flex-row gap-2">
+          {item.variant.images?.[0] && (
             <ProductVariantImage
-              className="w-16 h-16"
-              image={variant.images[0]}
+              className="size-20"
+              image={item.variant.images[0]}
             />
           )}
           <div className="flex flex-col gap-0.5 grow">
-            <Heading>{variant?.name}</Heading>
-            <Price className="text-sm" amount={variant.price.gross} />
+            <Heading className="flex items-start text-lg">
+              {item?.variant.name}
+              <span className="text-xxs">{item.quantity}</span>
+            </Heading>
+            <Price className="text-sm" amount={item.price.gross} />
           </div>
         </div>
       ))}
@@ -56,9 +64,9 @@ function ProductVariantImage({
         className={cn("object-contain mix-blend-multiply", className)}
         src={imageData?.url}
         alt={imageData?.altText ?? ""}
-        width={imageData?.width ?? 128}
-        height={imageData?.height ?? 128}
-        sizes="64px"
+        width={imageData?.width ?? 160}
+        height={imageData?.height ?? 160}
+        sizes="80px"
         {...props}
       />
     </picture>

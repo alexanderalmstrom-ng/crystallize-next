@@ -114,6 +114,10 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme {
+  --text-xxs: 0.625rem;
+}
+
 body {
   line-height: var(--leading-snug);
 }
