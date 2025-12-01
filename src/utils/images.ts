@@ -1,5 +1,5 @@
 import { type FragmentType, getFragmentData } from "@/gql/discovery";
-import { imageFragment } from "@/lib/discovery/fragments/image.fragment";
+import { imageFragment } from "@/lib/discovery/fragments/image";
 
 export function resolveImagesFragment(
   images:

@@ -1,7 +1,7 @@
 import { getFragmentData, graphql } from "@/gql/discovery";
 import { normalizeSlug } from "@/utils/common";
 import { crystallizeDiscovery } from "../crystallize/client";
-import { productFragment } from "./fragments/product.fragment";
+import { productFragment } from "./fragments/product";
 
 export const getProductsServerFn = async () => {
   const products = await crystallizeDiscovery({

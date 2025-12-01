@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import type { FragmentType } from "@/gql/discovery";
-import type { imageFragment } from "@/lib/discovery/fragments/image.fragment";
+import type { imageFragment } from "@/lib/discovery/fragments/image";
 import { resolveImagesFragment } from "@/utils/images";
 
 export default function ProductGalleryCarousel({
