@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import z from "zod";
 import { AddToCartInputSchema } from "@/lib/cart/addToCart";
 import { caller } from "@/trpc/server";
@@ -27,6 +28,8 @@ export async function addToCartAction(
   const addToCartResponse = await caller.cart.addToCart({
     items: validation.data.items,
   });
+
+  revalidatePath("/");
 
   return addToCartResponse;
 }

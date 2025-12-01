@@ -12,7 +12,7 @@ import Price from "../Price/Price";
 import { Button } from "../ui/button";
 import { Heading } from "../ui/heading";
 
-export default function MiniCartProductItem({
+export default function MiniCartItem({
   item,
 }: {
   item: CartFragment["items"][number];

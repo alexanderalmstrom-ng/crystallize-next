@@ -1,12 +1,16 @@
 import { MenuIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
+import { caller } from "@/trpc/server";
 import MiniCart from "../MiniCart/MiniCart";
 import MiniCartContent from "../MiniCart/MiniCartContent";
+import MiniCartItem from "../MiniCart/MiniCartItem";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import SiteHeaderLogo from "./SiteHeaderLogo";
 
-export default function SiteHeader() {
+export default async function SiteHeader() {
+  const cart = await caller.cart.cart();
+
   return (
     <header className="px-5 py-3.5 xl:px-10 xl:py-8 grid grid-cols-[1fr_auto_1fr] items-center gap-8">
       <button className="xl:hidden" type="button">
@@ -38,7 +42,11 @@ export default function SiteHeader() {
           <SearchIcon size={16} strokeWidth={1.25} />
         </Button>
         <MiniCart>
-          <MiniCartContent />
+          <MiniCartContent>
+            {cart?.items?.map((item) => (
+              <MiniCartItem key={item.name} item={item} />
+            ))}
+          </MiniCartContent>
         </MiniCart>
       </div>
     </header>
