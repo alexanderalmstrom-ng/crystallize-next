@@ -40,7 +40,7 @@ export default function MiniCartContent() {
                 image={item.variant.images[0]}
               />
             )}
-            <div className="flex flex-col gap-0.5 grow">
+            <div className="flex flex-col grow">
               <Heading className="flex items-start text-lg">
                 {item?.variant.name}
                 <span className="text-xxs">{item.quantity}</span>
