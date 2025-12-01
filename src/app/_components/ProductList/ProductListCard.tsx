@@ -16,14 +16,19 @@ export default function ProductListCard(props: ProductListCardProps) {
 
   return (
     <div>
-      <Image
-        src={image.url}
-        alt={image.altText ?? props.productTitle ?? ""}
-        width={image.width ?? 1000}
-        height={image.height ?? 1000}
-      />
-      <h3>{props.productTitle}</h3>
-      <p>{formatPrice(props.productPrice)}</p>
+      <picture className="bg-secondary flex">
+        <Image
+          className="object-contain mix-blend-multiply aspect-4/5"
+          src={image.url}
+          alt={image.altText ?? props.productTitle ?? ""}
+          width={image.width ?? 1000}
+          height={image.height ?? 1000}
+        />
+      </picture>
+      <div className="flex flex-col px-4 py-3">
+        <h3>{props.productTitle}</h3>
+        <p>{formatPrice(props.productPrice)}</p>
+      </div>
     </div>
   );
 }

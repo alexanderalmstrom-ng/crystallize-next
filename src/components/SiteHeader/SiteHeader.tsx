@@ -27,9 +27,9 @@ export default async function SiteHeader() {
         <SiteHeaderLogo className="xl:max-w-44 max-w-32" />
       </Link>
       <div className="ml-auto flex grow">
-        <form className="max-xl:hidden flex flex-row">
+        <form className="max-xl:hidden flex flex-row items-center">
           <Input
-            className="focus:outline-none border-0 placeholder:text-sm rounded-full"
+            className="focus:outline-none border-0 placeholder:text-sm rounded-full h-8"
             type="search"
             name="search"
             placeholder="Search"
