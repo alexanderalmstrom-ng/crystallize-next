@@ -44,11 +44,7 @@ export const getAuthToken = async () => {
 export const refreshAuthToken = async () => {
   const { cookies } = await import("next/headers");
 
-  const url = `${getBaseURL()}/api/auth-token`;
-
-  console.log("url", url);
-
-  const response = await fetch(url, {
+  const response = await fetch(`${getBaseURL()}/api/auth-token`, {
     method: "POST",
     body: JSON.stringify({
       secret: env.AUTH_TOKEN_API_SECRET,
