@@ -8,6 +8,7 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
+    VERCEL_URL: z.string().optional(),
     CRYSTALLIZE_TENANT_IDENTIFIER: z.string(),
     CRYSTALLIZE_ACCESS_TOKEN_ID: z.string(),
     CRYSTALLIZE_ACCESS_TOKEN_SECRET: z.string(),
@@ -30,6 +31,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    VERCEL_URL: process.env.VERCEL_URL,
     CRYSTALLIZE_TENANT_IDENTIFIER: process.env.CRYSTALLIZE_TENANT_IDENTIFIER,
     CRYSTALLIZE_ACCESS_TOKEN_ID: process.env.CRYSTALLIZE_ACCESS_TOKEN_ID,
     CRYSTALLIZE_ACCESS_TOKEN_SECRET:

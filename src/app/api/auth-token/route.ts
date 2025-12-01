@@ -3,8 +3,6 @@ import { env } from "@/env";
 import { AUTH_TOKEN_EXPIRATION_TIME } from "@/utils/auth";
 
 export async function POST(request: Request) {
-  console.log("POST request", request);
-
   const body = await request.json();
 
   if (body.secret !== env.AUTH_TOKEN_API_SECRET) {

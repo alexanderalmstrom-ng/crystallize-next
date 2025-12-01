@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dotenvx": "dotenvx",
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "dotenvx run -- next dev",
+    "build": "dotenvx run -- next build",
     "prebuild": "npm run codegen",
-    "start": "next start",
+    "start": "dotenvx run -- next start",
     "lint": "biome check",
     "format": "biome format --write",
     "codegen": "dotenvx run -- npm-run-all --parallel codegen:cart codegen:discovery",
