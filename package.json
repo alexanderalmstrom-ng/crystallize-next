@@ -6,6 +6,7 @@
     "dotenvx": "dotenvx",
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "npm run codegen",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",

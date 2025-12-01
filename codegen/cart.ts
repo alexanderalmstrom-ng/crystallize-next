@@ -17,12 +17,10 @@ const config: CodegenConfig = {
       presetConfig: {
         fragmentMasking: { unmaskFunctionName: "getFragmentData" },
       },
-      plugins: ["typescript"],
+      // plugins: ["typescript"],
       config: {
         documentMode: "string",
         useTypeImports: true,
-        maybeValue: "T | null | undefined",
-        ignoreEnumValuesFromSchema: true,
       },
     },
   },
