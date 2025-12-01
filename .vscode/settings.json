@@ -37,5 +37,11 @@
   },
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"], // For cva() usage
+    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"], // For cn() usage
+    ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"], // For tv() usage
+    ["className=\"([^\"]*)\""]
+  ]
 }

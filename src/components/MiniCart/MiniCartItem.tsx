@@ -24,7 +24,7 @@ export default function MiniCartItem({
   const variant = getFragmentData(productVariantFragment, item.variant);
 
   return (
-    <div key={variant.sku} className="flex flex-row gap-2">
+    <div key={variant.sku} className="flex flex-row gap-4 items-stretch">
       {variant.images?.[0] && (
         <MiniCartItemLink
           href={`/product/${removeLeadingSlash(variant.product.path)}`}
@@ -32,8 +32,14 @@ export default function MiniCartItem({
           <ProductVariantImage className="size-20" image={variant.images[0]} />
         </MiniCartItemLink>
       )}
-      <div className="flex flex-col grow">
-        <Heading className="flex items-start text-lg">{variant.name}</Heading>
+      <div className="flex flex-col grow p-1">
+        <Heading className="flex items-start text-lg" asChild>
+          <MiniCartItemLink
+            href={`/product/${removeLeadingSlash(variant.product.path)}`}
+          >
+            {variant.name}
+          </MiniCartItemLink>
+        </Heading>
         <ProductVariantDiscount
           totalDiscountAmount={totalDiscountAmount}
           totalGrossAmount={item.price.gross}
@@ -57,9 +63,12 @@ function ProductVariantImage({
   if (!imageData?.url) return null;
 
   return (
-    <picture className="bg-accent">
+    <picture className="bg-accent flex aspect-4/5 items-center justify-center shrink-0">
       <Image
-        className={cn("object-contain mix-blend-multiply", className)}
+        className={cn(
+          "object-contain w-full h-full mix-blend-multiply",
+          className,
+        )}
         src={imageData?.url}
         alt={imageData?.altText ?? ""}
         width={imageData?.width ?? 160}

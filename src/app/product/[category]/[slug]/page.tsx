@@ -23,7 +23,7 @@ export default async function ProductPage({
   );
 
   return (
-    <div className="grid lg:grid-cols-[2fr_minmax(32rem,1fr)]">
+    <div className="grid lg:grid-cols-2 2xl:grid-cols-[1.5fr_minmax(auto,48rem)]">
       <ProductGalleryCarousel images={productVariantImages} />
       <ProductDetails product={product} />
     </div>
@@ -32,7 +32,7 @@ export default async function ProductPage({
 
 function ProductDetails({ product }: { product: ProductFragment }) {
   return (
-    <div className="px-4 py-6 lg:p-10 flex flex-col gap-4">
+    <div className="p-4 lg:px-8 lg:py-6 flex flex-col gap-4">
       <header className="flex flex-col gap-2">
         <Heading asChild>
           <h1 className="text-2xl lg:text-4xl">{product.name}</h1>

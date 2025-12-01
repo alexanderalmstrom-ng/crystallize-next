@@ -1,17 +1,22 @@
 "use client";
 
 import { MinusIcon, PlusIcon } from "lucide-react";
-import { useActionState } from "react";
+import { type ComponentProps, useActionState } from "react";
+import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { updateCartQuantity } from "./MiniCart.actions";
+
+type MiniCartQuantityFormProps = ComponentProps<"div"> & {
+  sku?: string | null;
+  quantity: number;
+};
 
 export default function MiniCartQuantityForm({
   sku,
   quantity,
-}: {
-  sku?: string | null;
-  quantity: number;
-}) {
+  className,
+  ...props
+}: MiniCartQuantityFormProps) {
   const [state, formAction, isPending] = useActionState(
     updateCartQuantity.bind(null, sku),
     {
@@ -27,7 +32,10 @@ export default function MiniCartQuantityForm({
   const currentQuantity = state?.quantity ?? quantity;
 
   return (
-    <div className="flex flex-row gap-2 mt-2 items-center">
+    <div
+      className={cn("flex flex-row gap-2 mt-2 items-center", className)}
+      {...props}
+    >
       <form action={formAction}>
         <input type="hidden" name="action" value="decrement" />
         <Button
@@ -36,7 +44,7 @@ export default function MiniCartQuantityForm({
           disabled={isPending}
           type="submit"
         >
-          <MinusIcon className="size-2" strokeWidth={1.5} />
+          <MinusIcon className="size-3" strokeWidth={1.5} />
         </Button>
       </form>
       <span className="text-sm">{currentQuantity}</span>
@@ -48,7 +56,7 @@ export default function MiniCartQuantityForm({
           disabled={isPending}
           type="submit"
         >
-          <PlusIcon className="size-2" strokeWidth={1.5} />
+          <PlusIcon className="size-3" strokeWidth={1.5} />
         </Button>
       </form>
     </div>
