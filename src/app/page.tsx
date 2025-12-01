@@ -1,3 +1,10 @@
+import { Fragment } from "react/jsx-runtime";
+import ProductList from "./_components/ProductList/ProductList";
+
 export default function Home() {
-  return <div>Hello World</div>;
+  return (
+    <Fragment>
+      <ProductList />
+    </Fragment>
+  );
 }
