@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { startTransition, useActionState } from "react";
+import { useMiniCartStore } from "@/components/MiniCart/MiniCart.store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { ProductFragment } from "@/gql/discovery/graphql";
@@ -10,9 +11,18 @@ import { addToCartAction } from "./ProductForm.actions";
 export default function ProductForm({ product }: { product: ProductFragment }) {
   const [_, formAction, isPending] = useActionState(addToCartAction, null);
   const variants = getVariantsWithSkuAndName(product?.variants);
+  const setOpen = useMiniCartStore((state) => state.setOpen);
 
   return (
-    <form action={formAction} className="flex flex-col gap-2">
+    <form
+      action={formAction}
+      onSubmit={() => {
+        startTransition(() => {
+          setOpen(true);
+        });
+      }}
+      className="flex flex-col gap-2"
+    >
       <input type="hidden" name="sku" value={variants?.[0]?.sku ?? ""} />
       <div className="flex gap-2">
         <Input

@@ -1,3 +1,5 @@
+"use client";
+
 import { ShoppingBasketIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import {
@@ -7,10 +9,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { useMiniCartStore } from "./MiniCart.store";
 
 export default function MiniCart({ children }: { children: React.ReactNode }) {
+  const open = useMiniCartStore((state) => state.open);
+  const setOpen = useMiniCartStore((state) => state.setOpen);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost">
           <ShoppingBasketIcon strokeWidth={1.25} />
