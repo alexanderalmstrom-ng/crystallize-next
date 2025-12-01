@@ -26,7 +26,7 @@ export default function ProductGalleryCarousel({
 
   return (
     <Carousel className="bg-secondary" opts={{ align: "start", loop: true }}>
-      <CarouselContent className="xl:h-[calc(100vh-6.4375rem)]">
+      <CarouselContent className="xl:h-screen lg:min-h-128">
         {imagesWithUrl.map((image) => {
           if (!image?.url) return null;
 

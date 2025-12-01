@@ -27,7 +27,7 @@ export default function MiniCart({
         <Button variant="ghost" className="relative">
           <ShoppingBasketIcon strokeWidth={1.5} />
           {total && (
-            <span className="text-xs absolute top-0.5 right-1.5 bg-background text-primary leading-none flex items-center justify-center">
+            <span className="text-xs absolute top-0.5 right-1.5 text-primary leading-none flex items-center justify-center">
               {total}
             </span>
           )}

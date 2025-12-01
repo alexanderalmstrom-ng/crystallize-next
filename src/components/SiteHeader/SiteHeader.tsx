@@ -12,7 +12,7 @@ export default async function SiteHeader() {
   const cart = await caller.cart.cart();
 
   return (
-    <header className="px-5 py-3.5 xl:px-10 xl:py-8 grid grid-cols-[1fr_auto_1fr] items-center gap-8">
+    <header className="px-5 sticky top-0 w-full z-30 py-3.5 xl:px-10 xl:py-8 grid grid-cols-[1fr_auto_1fr] items-center gap-8">
       <Button variant="ghost" className="xl:hidden mr-auto" type="button">
         <MenuIcon className="size-4.5" strokeWidth={1.5} />
       </Button>
@@ -30,7 +30,7 @@ export default async function SiteHeader() {
         <form className="max-xl:hidden flex flex-row items-center">
           <div className="grid">
             <Input
-              className="col-span-full row-span-full focus:outline-none min-w-56 pl-8 placeholder:text-sm rounded-full h-9 pr-2 text-ellipsis"
+              className="col-span-full row-span-full bg-accent/50 placeholder:text-foreground backdrop-blur-lg focus:outline-none min-w-56 pl-8 placeholder:text-sm rounded-full h-9 pr-2 text-ellipsis"
               type="search"
               name="search"
               placeholder="Search for brands, products..."
@@ -38,7 +38,7 @@ export default async function SiteHeader() {
             <Button
               variant="ghost"
               type="submit"
-              className="size-8 col-span-full row-span-full self-center justify-self-start"
+              className="size-8 col-span-full row-span-full self-center justify-self-start relative"
             >
               <SearchIcon className="size-4.5" strokeWidth={1.5} />
             </Button>
