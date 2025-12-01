@@ -14,9 +14,7 @@ export async function updateCart(input: z.infer<typeof UpdateCartInputSchema>) {
   const validation = UpdateCartInputSchema.safeParse(input);
 
   if (!validation.success) {
-    return {
-      error: z.treeifyError(validation.error),
-    };
+    throw new Error("Failed to validate cart input");
   }
 
   try {
@@ -24,8 +22,6 @@ export async function updateCart(input: z.infer<typeof UpdateCartInputSchema>) {
   } catch (error) {
     console.error("Failed to update item(s) in cart", error);
 
-    return {
-      error: "Failed to update item(s) in cart",
-    };
+    throw new Error("Failed to update item(s) in cart");
   }
 }

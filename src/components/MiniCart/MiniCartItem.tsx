@@ -1,4 +1,3 @@
-import { MinusIcon, PlusIcon } from "lucide-react";
 import Image from "next/image";
 import type { ComponentProps } from "react";
 import type { FragmentType } from "@/gql/cart";
@@ -9,8 +8,8 @@ import { productVariantFragment } from "@/lib/cart/fragments/productVariant";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/utils/price";
 import Price from "../Price/Price";
-import { Button } from "../ui/button";
 import { Heading } from "../ui/heading";
+import MiniCartQuantityForm from "./MiniCartQuantityForm";
 
 export default function MiniCartItem({
   item,
@@ -38,7 +37,7 @@ export default function MiniCartItem({
           totalGrossAmount={item.price.gross}
         />
         <Price className="text-sm" amount={item.price.net} />
-        <ProductVariantQuantitySelect quantity={item.quantity} />
+        <MiniCartQuantityForm sku={variant.sku} quantity={item.quantity} />
       </div>
     </div>
   );
@@ -91,19 +90,5 @@ function ProductVariantDiscount({
         amount={totalGrossAmount}
       />
     </>
-  );
-}
-
-function ProductVariantQuantitySelect({ quantity }: { quantity: number }) {
-  return (
-    <form className="flex flex-row gap-2 mt-2 items-center">
-      <Button variant="secondary" size="icon-sm">
-        <MinusIcon className="size-2" />
-      </Button>
-      <span className="text-sm">{quantity}</span>
-      <Button variant="secondary" size="icon-sm">
-        <PlusIcon className="size-2" />
-      </Button>
-    </form>
   );
 }
