@@ -2,6 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import z from "zod";
+import { getFragmentData } from "@/gql/cart";
+import { productVariantFragment } from "@/lib/cart/fragments/productVariant";
+import { getCart } from "@/lib/cart/getCart";
 import { UpdateCartInputSchema, updateCart } from "@/lib/cart/updateCart";
 
 function decrementQuantity(state: { quantity: number }) {
@@ -12,7 +15,7 @@ function incrementQuantity(state: { quantity: number }) {
 }
 
 export async function updateCartQuantity(
-  sku: string | null | undefined,
+  sku: string,
   initialState: { quantity: number },
   formData: FormData,
 ) {
@@ -39,9 +42,40 @@ export async function updateCartQuantity(
     };
   }
 
+  const currentCart = await getCart();
+
+  const updatedCartItems =
+    currentCart?.items.map((item) => {
+      const itemSku = z
+        .string()
+        .parse(getFragmentData(productVariantFragment, item.variant)?.sku);
+      const itemQuantity = z.number().parse(item.quantity);
+
+      if (itemSku === sku) {
+        return {
+          sku,
+          quantity: newState.quantity,
+        };
+      }
+
+      return {
+        sku: itemSku,
+        quantity: itemQuantity,
+      };
+    }) ?? [];
+
+  const skuIsInCart = updatedCartItems.some((item) => item.sku === sku);
+
+  if (!skuIsInCart) {
+    updatedCartItems.push({
+      sku,
+      quantity: newState.quantity,
+    });
+  }
+
   try {
     await updateCart({
-      items: validation.data.items,
+      items: updatedCartItems,
     });
 
     revalidatePath("/");

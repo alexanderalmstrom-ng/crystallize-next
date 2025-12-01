@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { updateCartQuantity } from "./MiniCart.actions";
 
 type MiniCartQuantityFormProps = ComponentProps<"div"> & {
-  sku?: string | null;
+  sku: string;
   quantity: number;
 };
 

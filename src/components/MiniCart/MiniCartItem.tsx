@@ -45,7 +45,9 @@ export default function MiniCartItem({
           totalGrossAmount={item.price.gross}
         />
         <Price className="text-sm" amount={item.price.net} />
-        <MiniCartQuantityForm sku={variant.sku} quantity={item.quantity} />
+        {variant.sku && (
+          <MiniCartQuantityForm sku={variant.sku} quantity={item.quantity} />
+        )}
       </div>
     </div>
   );
