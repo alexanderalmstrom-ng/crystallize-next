@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { formatPrice } from "@/utils/price";
 import Price from "../Price/Price";
 import { Heading } from "../ui/heading";
+import MiniCartItemLink from "./MiniCartItemLink";
 import MiniCartQuantityForm from "./MiniCartQuantityForm";
 
 export default function MiniCartItem({
@@ -19,13 +20,14 @@ export default function MiniCartItem({
   const totalDiscountAmount = item?.price.discounts
     ?.map((discount) => discount.amount)
     .reduce((acc, discount) => acc + discount, 0);
-
   const variant = getFragmentData(productVariantFragment, item.variant);
 
   return (
     <div key={variant.sku} className="flex flex-row gap-2">
       {variant.images?.[0] && (
-        <ProductVariantImage className="size-20" image={variant.images[0]} />
+        <MiniCartItemLink href={`/product/${variant.product.path}`}>
+          <ProductVariantImage className="size-20" image={variant.images[0]} />
+        </MiniCartItemLink>
       )}
       <div className="flex flex-col grow">
         <Heading className="flex items-start text-lg">

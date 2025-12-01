@@ -4,6 +4,9 @@ export const productVariantFragment = graphql(`
     fragment productVariant on ProductVariant {
       name
       sku
+      product {
+        path
+      }
       images {
         ...image
       }
