@@ -1,5 +1,6 @@
 "use client";
 
+import { MinusIcon, PlusIcon } from "lucide-react";
 import Image from "next/image";
 import type { ComponentProps } from "react";
 import { type FragmentType, getFragmentData } from "@/gql/cart";
@@ -9,6 +10,7 @@ import { productVariantFragment } from "@/lib/cart/fragments/productVariant";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/utils/price";
 import Price from "../Price/Price";
+import { Button } from "../ui/button";
 import { Heading } from "../ui/heading";
 
 export default function MiniCartContent() {
@@ -26,7 +28,7 @@ export default function MiniCartContent() {
   return (
     <div className="p-4 flex flex-col">
       {items?.map((item) => {
-        const totalDiscount = item?.price.discounts
+        const totalDiscountAmount = item?.price.discounts
           ?.map((discount) => discount.amount)
           .reduce((acc, discount) => acc + discount, 0);
 
@@ -43,18 +45,12 @@ export default function MiniCartContent() {
                 {item?.variant.name}
                 <span className="text-xxs">{item.quantity}</span>
               </Heading>
-              {typeof totalDiscount === "number" && totalDiscount > 0 && (
-                <>
-                  <p className="text-sm text-destructive">
-                    -{formatPrice(totalDiscount)}
-                  </p>
-                  <Price
-                    className="text-sm line-through text-muted-foreground"
-                    amount={item.price.gross}
-                  />
-                </>
-              )}
+              <ProductVariantDiscount
+                totalDiscountAmount={totalDiscountAmount}
+                totalGrossAmount={item.price.gross}
+              />
               <Price className="text-sm" amount={item.price.net} />
+              <ProductVariantQuantitySelect quantity={item.quantity} />
             </div>
           </div>
         );
@@ -86,5 +82,43 @@ function ProductVariantImage({
         {...props}
       />
     </picture>
+  );
+}
+
+function ProductVariantDiscount({
+  totalDiscountAmount,
+  totalGrossAmount,
+}: {
+  totalDiscountAmount?: number;
+  totalGrossAmount: number;
+}) {
+  if (typeof totalDiscountAmount !== "number" || totalDiscountAmount === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <p className="text-sm text-destructive">
+        -{formatPrice(totalDiscountAmount)}
+      </p>
+      <Price
+        className="text-sm line-through text-muted-foreground"
+        amount={totalGrossAmount}
+      />
+    </>
+  );
+}
+
+function ProductVariantQuantitySelect({ quantity }: { quantity: number }) {
+  return (
+    <form className="flex flex-row gap-2 items-center">
+      <Button variant="secondary" size="icon-sm">
+        <MinusIcon className="size-2" />
+      </Button>
+      <span>{quantity}</span>
+      <Button variant="secondary" size="icon-sm">
+        <PlusIcon className="size-2" />
+      </Button>
+    </form>
   );
 }
