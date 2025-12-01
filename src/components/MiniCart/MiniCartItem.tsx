@@ -6,6 +6,7 @@ import type { CartFragment } from "@/gql/cart/graphql";
 import { imageFragment } from "@/lib/cart/fragments/image";
 import { productVariantFragment } from "@/lib/cart/fragments/productVariant";
 import { cn } from "@/lib/utils";
+import { removeLeadingSlash } from "@/utils/common";
 import { formatPrice } from "@/utils/price";
 import Price from "../Price/Price";
 import { Heading } from "../ui/heading";
@@ -25,7 +26,9 @@ export default function MiniCartItem({
   return (
     <div key={variant.sku} className="flex flex-row gap-2">
       {variant.images?.[0] && (
-        <MiniCartItemLink href={`/product/${variant.product.path}`}>
+        <MiniCartItemLink
+          href={`/product/${removeLeadingSlash(variant.product.path)}`}
+        >
           <ProductVariantImage className="size-20" image={variant.images[0]} />
         </MiniCartItemLink>
       )}
