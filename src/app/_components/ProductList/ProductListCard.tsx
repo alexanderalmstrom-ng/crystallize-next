@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import { type FragmentType, getFragmentData } from "@/gql/discovery";
 import { imageFragment } from "@/lib/discovery/fragments/image";
 import { formatPrice } from "@/utils/price";
 
 type ProductListCardProps = {
+  productPath: string | null | undefined;
   productTitle: string | null | undefined;
   productPrice: number;
   productImage: FragmentType<typeof imageFragment> | null | undefined;
@@ -15,7 +17,7 @@ export default function ProductListCard(props: ProductListCardProps) {
   if (!image?.url) return null;
 
   return (
-    <div>
+    <Link href={`/product/${props.productPath}`}>
       <picture className="bg-secondary flex">
         <Image
           className="object-contain mix-blend-multiply aspect-4/5"
@@ -29,6 +31,6 @@ export default function ProductListCard(props: ProductListCardProps) {
         <h3>{props.productTitle}</h3>
         <p>{formatPrice(props.productPrice)}</p>
       </div>
-    </div>
+    </Link>
   );
 }

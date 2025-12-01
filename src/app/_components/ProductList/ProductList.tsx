@@ -1,4 +1,5 @@
 import { caller } from "@/trpc/server";
+import { removeLeadingSlash } from "@/utils/common";
 import { resolveProductVariantsForProductFragment } from "@/utils/variant";
 import ProductListCard from "./ProductListCard";
 
@@ -8,7 +9,7 @@ export default async function ProductList() {
   if (!products) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px">
+    <div className="grid grid-cols-2 xl:grid-cols-4 gap-px">
       {products.map((product) => {
         if (!product) return null;
 
@@ -23,6 +24,9 @@ export default async function ProductList() {
         return (
           <ProductListCard
             key={product.id}
+            productPath={
+              product.path ? removeLeadingSlash(product.path) : undefined
+            }
             productTitle={product.name}
             productPrice={defaultVariant.defaultPrice ?? 0}
             productImage={defaultVariantImage}
