@@ -7,6 +7,7 @@ import useCart from "@/hooks/useCart";
 import { imageFragment } from "@/lib/cart/fragments/image";
 import { productVariantFragment } from "@/lib/cart/fragments/productVariant";
 import { cn } from "@/lib/utils";
+import { formatPrice } from "@/utils/price";
 import Price from "../Price/Price";
 import { Heading } from "../ui/heading";
 
@@ -20,29 +21,44 @@ export default function MiniCartContent() {
     };
   });
 
-  console.log("items", items);
-
   if (isPending) return <div>Loading cart...</div>;
 
   return (
     <div className="p-4 flex flex-col">
-      {items?.map((item) => (
-        <div key={item?.variant.sku} className="flex flex-row gap-2">
-          {item.variant.images?.[0] && (
-            <ProductVariantImage
-              className="size-20"
-              image={item.variant.images[0]}
-            />
-          )}
-          <div className="flex flex-col gap-0.5 grow">
-            <Heading className="flex items-start text-lg">
-              {item?.variant.name}
-              <span className="text-xxs">{item.quantity}</span>
-            </Heading>
-            <Price className="text-sm" amount={item.price.gross} />
+      {items?.map((item) => {
+        const totalDiscount = item?.price.discounts
+          ?.map((discount) => discount.amount)
+          .reduce((acc, discount) => acc + discount, 0);
+
+        return (
+          <div key={item?.variant.sku} className="flex flex-row gap-2">
+            {item.variant.images?.[0] && (
+              <ProductVariantImage
+                className="size-20"
+                image={item.variant.images[0]}
+              />
+            )}
+            <div className="flex flex-col gap-0.5 grow">
+              <Heading className="flex items-start text-lg">
+                {item?.variant.name}
+                <span className="text-xxs">{item.quantity}</span>
+              </Heading>
+              {typeof totalDiscount === "number" && totalDiscount > 0 && (
+                <>
+                  <p className="text-sm text-destructive">
+                    -{formatPrice(totalDiscount)}
+                  </p>
+                  <Price
+                    className="text-sm line-through text-muted-foreground"
+                    amount={item.price.gross}
+                  />
+                </>
+              )}
+              <Price className="text-sm" amount={item.price.net} />
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
