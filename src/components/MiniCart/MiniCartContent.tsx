@@ -111,11 +111,11 @@ function ProductVariantDiscount({
 
 function ProductVariantQuantitySelect({ quantity }: { quantity: number }) {
   return (
-    <form className="flex flex-row gap-2 items-center">
+    <form className="flex flex-row gap-2 mt-2 items-center">
       <Button variant="secondary" size="icon-sm">
         <MinusIcon className="size-2" />
       </Button>
-      <span>{quantity}</span>
+      <span className="text-sm">{quantity}</span>
       <Button variant="secondary" size="icon-sm">
         <PlusIcon className="size-2" />
       </Button>
