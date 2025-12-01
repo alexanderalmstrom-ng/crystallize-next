@@ -1,6 +1,7 @@
 "use client";
 
-import { startTransition, useActionState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { FormEvent } from "react";
 import { useMiniCartStore } from "@/components/MiniCart/MiniCart.store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,20 +10,31 @@ import { getVariantsWithSkuAndName } from "@/utils/variant";
 import { addToCartAction } from "./ProductForm.actions";
 
 export default function ProductForm({ product }: { product: ProductFragment }) {
-  const [_, formAction, isPending] = useActionState(addToCartAction, null);
+  const queryClient = useQueryClient();
   const variants = getVariantsWithSkuAndName(product?.variants);
+
   const setOpen = useMiniCartStore((state) => state.setOpen);
+  const { mutate: addToCartMutation, isPending } = useMutation({
+    mutationFn: (formData: FormData) => addToCartAction(null, formData),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["cart"] });
+    },
+    onSuccess: () => {
+      setOpen(true);
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  });
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    addToCartMutation(formData);
+  }
 
   return (
-    <form
-      action={formAction}
-      onSubmit={() => {
-        startTransition(() => {
-          setOpen(true);
-        });
-      }}
-      className="flex flex-col gap-2"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       <input type="hidden" name="sku" value={variants?.[0]?.sku ?? ""} />
       <div className="flex gap-2">
         <Input

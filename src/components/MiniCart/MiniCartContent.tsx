@@ -1,19 +1,17 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import type { ComponentProps } from "react";
 import { type FragmentType, getFragmentData } from "@/gql/cart";
+import useCart from "@/hooks/useCart";
 import { imageFragment } from "@/lib/cart/fragments/image";
 import { productVariantFragment } from "@/lib/cart/fragments/productVariant";
 import { cn } from "@/lib/utils";
-import { useTRPC } from "@/trpc/client";
 import Price from "../Price/Price";
 import { Heading } from "../ui/heading";
 
 export default function MiniCartContent() {
-  const trpc = useTRPC();
-  const { data: cart, isPending } = useQuery(trpc.cart.cart.queryOptions());
+  const { data: cart, isPending } = useCart();
 
   const variants = cart?.items.map((item) =>
     getFragmentData(productVariantFragment, item.variant),
